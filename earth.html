@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>>
+        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+        <script>
+            AFRAME.registerComponent('navigate-on-click', {
+                schema: {
+                    url: {
+                    default: ''
+                }
+            },
+
+            init: function () {
+                var data = this.data;
+                var el = this.el;
+
+                el.addEventListener('click', function () {
+                    window.location.href = data.url;
+                });
+            }
+            });
+        </script>   
+    </head>
+    
+    <body>
+    <a-scene>
+        <a-assets>
+            <img src="textures/sky.jpeg" id="sky">
+            <img src="textures/meteor.jpg" id="meteor">
+            <img src="textures/earth.png" id="earth">
+            <img src="textures/mars.png" id="mars">        
+        </a-assets>
+        
+                <a-assets>
+            <img src="textures/earthsky.jpg" id="earthsky">
+            <img src="textures/marssky.jpg" id="marssky">
+        </a-assets>
+
+        <a-sky src="#earthsky"></a-sky>
+
+        <a-entity look-controls cursor="rayOrigin: mouse"></a-entity>
+        
+        <a-entity position="-3 0.5 -5" geometry="primitive: box" material="color: yellow"
+        animation__mouseenter="property: components.material.material.color; type: color; to: red; startEvents: mouseenter; dur: 500"
+        animation__mouseleave="property: components.material.material.color; type: color; to: yellow; startEvents: mouseleave; dur: 500">
+        </a-entity>
+
+        <a-entity look-controls cursor="rayOrigin: mouse"></a-entity>
+        
+        <a-entity position="-3 0.5 -5" geometry="primitive: a-circle" material="color: pink"
+            animation__mouseenter="property: components.material.material.color; type: color; to: gold; startEvents: mouseenter; dur: 500"
+            animation__mouseleave="property: components.material.material.color; type: color; to: pink; startEvents: mouseleave; dur: 500">
+        </a-entity>
+        
+        <a-circle src="#meteor" color="#ffffff" radius="0.5" position="-6 2 -5" event-set__enter="_event: mouseenter; event-set__leave="
+            _event: mouseleave; color: #C0CED0 navigate-on-click="url:index.html "></a-circle>
+        <a-circle src="#earth" color="#ffffff" radius="0.5" position="-2 2 -5" event-set__enter="_event: mouseenter; event-set__leave="
+            _event: mouseleave; color: #C0CED0 navigate-on-click="url:index.html "></a-circle>
+        <a-circle src="#mars" color="#ffffff" radius="0.5" position="2 2 -5" event-set__enter="_event: mouseenter; event-set__leave="
+            _event: mouseleave; color: #C0CED0 navigate-on-click="url:mars.html "></a-circle>
+        <a-entity gltf-model="#earth" position="-1 0.9 -5" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity gltf-model="#mars" position="1 0.7 -5" scale="1 1 1"></a-entity>
+    </a-scene>
+    
+    </body>
+</html>
